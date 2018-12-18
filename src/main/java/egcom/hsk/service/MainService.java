@@ -3,9 +3,11 @@ package egcom.hsk.service;
 import egcom.hsk.dto.CreateReservationDTO;
 import egcom.hsk.dto.CreateStadiumDTO;
 import egcom.hsk.dto.StadiumDTO;
+import egcom.hsk.dto.TimeSlotDTO;
 import egcom.hsk.entity.Reservation;
 import egcom.hsk.entity.Stadium;
 import egcom.hsk.misc.DTO2Entity;
+import egcom.hsk.misc.Entity2DTO;
 import egcom.hsk.repository.ReservationRepo;
 import egcom.hsk.repository.StadiumRepo;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,15 @@ import java.util.List;
 @Service
 public class MainService {
     private final DTO2Entity dto2Entity;
+    private final Entity2DTO entity2DTO;
     private final StadiumRepo stadiumRepo;
     private final ReservationRepo reservationRepo;
 
 
-    public MainService(DTO2Entity dto2Entity, StadiumRepo stadiumRepo, ReservationRepo reservationRepo) {
+    public MainService(DTO2Entity dto2Entity, Entity2DTO entity2DTO, StadiumRepo stadiumRepo,
+                       ReservationRepo reservationRepo) {
         this.dto2Entity = dto2Entity;
+        this.entity2DTO = entity2DTO;
         this.stadiumRepo = stadiumRepo;
         this.reservationRepo = reservationRepo;
     }
@@ -63,4 +68,10 @@ public class MainService {
     }
 
 
+    public List<TimeSlotDTO> readTimeSlots(Long stadiumId, LocalDate reservationDate) {
+        List<Reservation> reservations = reservationRepo.findAllByStadiumIdAndReservationDate(stadiumId, reservationDate);
+        List<TimeSlotDTO> timeSlotDTOs = entity2DTO.createTimeSlots(stadiumId, reservations);
+
+        return timeSlotDTOs;
+    }
 }
