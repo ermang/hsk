@@ -3,6 +3,7 @@ package egcom.hsk;
 import egcom.hsk.dto.CreateReservationDTO;
 import egcom.hsk.dto.CreateStadiumDTO;
 import egcom.hsk.dto.StadiumDTO;
+import egcom.hsk.entity.Reservation;
 import egcom.hsk.service.MainService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -70,5 +72,19 @@ public class LocationTest {
         Assert.assertEquals(1, actual.size());
         Assert.assertEquals("istanbul", actual.get(0).city);
         Assert.assertEquals("maltepe", actual.get(0).district);
+    }
+
+    @Test
+    public void list_reservations_for_stadium_on_date() {
+        CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
+        Long stadiumId = service.createStadium(createStadiumDTO);
+
+        CreateReservationDTO reservationDTO = testFactory.createReservationDTO();
+        reservationDTO.stadiumId = stadiumId;
+        service.createReservation(reservationDTO);
+
+        List<Reservation> reservations = service.readReservations(stadiumId, LocalDate.now());
+
+        Assert.assertEquals(1, reservations.size());
     }
 }

@@ -10,6 +10,7 @@ import egcom.hsk.repository.ReservationRepo;
 import egcom.hsk.repository.StadiumRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -50,9 +51,15 @@ public class MainService {
     }
 
     public List<StadiumDTO> readStadiumsByCityAndDistrict(String city, String district) {
-        List<StadiumDTO> stadiumDTOs = stadiumRepo.findAllByCity(city);
+        List<StadiumDTO> stadiumDTOs = stadiumRepo.findAllByCityAndDistrict(city, district);
 
         return stadiumDTOs;
+    }
+
+    public List<Reservation> readReservations(Long stadiumId, LocalDate reservationDate) {
+        List<Reservation> reservations = reservationRepo.findAllByStadiumIdAndReservationDate(stadiumId, reservationDate);
+
+        return reservations;
     }
 
 
