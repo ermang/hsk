@@ -2,12 +2,15 @@ package egcom.hsk.service;
 
 import egcom.hsk.dto.CreateReservationDTO;
 import egcom.hsk.dto.CreateStadiumDTO;
+import egcom.hsk.dto.StadiumDTO;
 import egcom.hsk.entity.Reservation;
 import egcom.hsk.entity.Stadium;
 import egcom.hsk.misc.DTO2Entity;
 import egcom.hsk.repository.ReservationRepo;
 import egcom.hsk.repository.StadiumRepo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MainService {
@@ -34,6 +37,22 @@ public class MainService {
         reservation = reservationRepo.save(reservation);
 
         return reservation.getId();
+    }
+
+    public List<Stadium> readAllStadiums() {
+        return stadiumRepo.findAll();
+    }
+
+    public List<StadiumDTO> readStadiumsByCity(String city) {
+        List<StadiumDTO> stadiumDTOs = stadiumRepo.findAllByCity(city);
+
+        return stadiumDTOs;
+    }
+
+    public List<StadiumDTO> readStadiumsByCityAndDistrict(String city, String district) {
+        List<StadiumDTO> stadiumDTOs = stadiumRepo.findAllByCity(city);
+
+        return stadiumDTOs;
     }
 
 

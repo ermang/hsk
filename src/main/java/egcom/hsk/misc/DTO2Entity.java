@@ -6,7 +6,6 @@ import egcom.hsk.entity.Reservation;
 import egcom.hsk.entity.Stadium;
 import egcom.hsk.repository.StadiumRepo;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class DTO2Entity {
@@ -21,6 +20,8 @@ public class DTO2Entity {
         Stadium stadium = new Stadium();
         stadium.setLatitude(createStadiumDTO.latitude);
         stadium.setLongitude(createStadiumDTO.longitude);
+        stadium.setCity(createStadiumDTO.city);
+        stadium.setDistrict(createStadiumDTO.district);
         stadium.setAddress(createStadiumDTO.address);
 
         return stadium;

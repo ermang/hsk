@@ -2,7 +2,7 @@ package egcom.hsk;
 
 import egcom.hsk.dto.CreateReservationDTO;
 import egcom.hsk.dto.CreateStadiumDTO;
-import egcom.hsk.entity.Stadium;
+import egcom.hsk.dto.StadiumDTO;
 import egcom.hsk.service.MainService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,10 +10,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
@@ -45,5 +46,29 @@ public class LocationTest {
         Long actual = service.createReservation(createReservationDTO);
 
         Assert.assertNotNull(actual);
+    }
+
+    @Test
+    public void list_stadiums_in_city() {
+        CreateStadiumDTO dto = testFactory.createStadiumDTO();
+        service.createStadium(dto);
+        CreateStadiumDTO dto2 = testFactory.createStadiumDTO();
+        dto2.city = "ankara";
+        service.createStadium(dto2);
+
+        List<StadiumDTO> actual = service.readStadiumsByCity("ankara");
+        Assert.assertEquals(1, actual.size());
+        Assert.assertEquals("ankara", actual.get(0).city);
+    }
+
+    @Test
+    public void list_stadiums_in_city_and_district() {
+        CreateStadiumDTO dto = testFactory.createStadiumDTO();
+        service.createStadium(dto);
+
+        List<StadiumDTO> actual = service.readStadiumsByCityAndDistrict("istanbul", "maltepe");
+        Assert.assertEquals(1, actual.size());
+        Assert.assertEquals("istanbul", actual.get(0).city);
+        Assert.assertEquals("maltepe", actual.get(0).district);
     }
 }
