@@ -20,13 +20,13 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class, Component.class}))
-public class LocationTest {
+public class IntegrationTest {
     private final TestFactory testFactory;
 
     @Autowired
     private MainService service;
 
-    public LocationTest() {
+    public IntegrationTest() {
         this.testFactory = new TestFactory();
     }
 
@@ -88,7 +88,7 @@ public class LocationTest {
     }
 
     @Test
-    public void list_time_slots_for_stadium_on_date() {
+    public void list_time_slots_for_stadium_on_date_after_reservation() {
         CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
         Long stadiumId = service.createStadium(createStadiumDTO);
 
