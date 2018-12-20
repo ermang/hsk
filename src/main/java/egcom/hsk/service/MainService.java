@@ -1,13 +1,11 @@
 package egcom.hsk.service;
 
-import egcom.hsk.dto.CreateReservationDTO;
-import egcom.hsk.dto.CreateStadiumDTO;
-import egcom.hsk.dto.StadiumDTO;
-import egcom.hsk.dto.TimeSlotDTO;
+import egcom.hsk.dto.*;
 import egcom.hsk.entity.Reservation;
 import egcom.hsk.entity.Stadium;
 import egcom.hsk.misc.DTO2Entity;
 import egcom.hsk.misc.Entity2DTO;
+import egcom.hsk.misc.TimeSlotGenerator;
 import egcom.hsk.repository.ReservationRepo;
 import egcom.hsk.repository.StadiumRepo;
 import org.springframework.stereotype.Service;
@@ -19,14 +17,16 @@ import java.util.List;
 public class MainService {
     private final DTO2Entity dto2Entity;
     private final Entity2DTO entity2DTO;
+    private final TimeSlotGenerator timeSlotGenerator;
     private final StadiumRepo stadiumRepo;
     private final ReservationRepo reservationRepo;
 
 
-    public MainService(DTO2Entity dto2Entity, Entity2DTO entity2DTO, StadiumRepo stadiumRepo,
-                       ReservationRepo reservationRepo) {
+    public MainService(DTO2Entity dto2Entity, Entity2DTO entity2DTO, TimeSlotGenerator timeSlotGenerator,
+                       StadiumRepo stadiumRepo, ReservationRepo reservationRepo) {
         this.dto2Entity = dto2Entity;
         this.entity2DTO = entity2DTO;
+        this.timeSlotGenerator = timeSlotGenerator;
         this.stadiumRepo = stadiumRepo;
         this.reservationRepo = reservationRepo;
     }
@@ -67,11 +67,11 @@ public class MainService {
         return reservations;
     }
 
-
-    public List<TimeSlotDTO> readTimeSlots(Long stadiumId, LocalDate reservationDate) {
+    public DailyTimeSlotDTO readTimeSlots(Long stadiumId, LocalDate reservationDate) {
         List<Reservation> reservations = reservationRepo.findAllByStadiumIdAndReservationDate(stadiumId, reservationDate);
-        List<TimeSlotDTO> timeSlotDTOs = entity2DTO.createTimeSlots(stadiumId, reservations);
+        DailyTimeSlotDTO dailyTimeSlotDTO = timeSlotGenerator.dailyTimeSlotDTO(stadiumId);
+        dailyTimeSlotDTO = timeSlotGenerator.updateWithReservations(dailyTimeSlotDTO, reservations);
 
-        return timeSlotDTOs;
+        return dailyTimeSlotDTO;
     }
 }

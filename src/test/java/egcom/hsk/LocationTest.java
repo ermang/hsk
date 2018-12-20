@@ -1,9 +1,6 @@
 package egcom.hsk;
 
-import egcom.hsk.dto.CreateReservationDTO;
-import egcom.hsk.dto.CreateStadiumDTO;
-import egcom.hsk.dto.StadiumDTO;
-import egcom.hsk.dto.TimeSlotDTO;
+import egcom.hsk.dto.*;
 import egcom.hsk.entity.Reservation;
 import egcom.hsk.service.MainService;
 import org.junit.Assert;
@@ -99,8 +96,8 @@ public class LocationTest {
         reservationDTO.stadiumId = stadiumId;
         service.createReservation(reservationDTO);
 
-        List<TimeSlotDTO> timeSlotDTOS = service.readTimeSlots(stadiumId, LocalDate.now());
+        DailyTimeSlotDTO dailyTimeSlotDTO = service.readTimeSlots(stadiumId, LocalDate.now());
 
-        Assert.assertEquals(true, timeSlotDTOS.get(LocalTime.now().getHour()).reserved);
+        Assert.assertEquals(true, dailyTimeSlotDTO.timeSlotDTOs[LocalTime.now().getHour()].reserved);
     }
 }
