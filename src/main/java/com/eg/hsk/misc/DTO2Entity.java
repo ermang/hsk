@@ -1,10 +1,10 @@
-package egcom.hsk.misc;
+package com.eg.hsk.misc;
 
-import egcom.hsk.dto.CreateReservationDTO;
-import egcom.hsk.dto.CreateStadiumDTO;
-import egcom.hsk.entity.Reservation;
-import egcom.hsk.entity.Stadium;
-import egcom.hsk.repository.StadiumRepo;
+import com.eg.hsk.dto.CreateReservationDTO;
+import com.eg.hsk.dto.CreateStadiumDTO;
+import com.eg.hsk.entity.Reservation;
+import com.eg.hsk.entity.Stadium;
+import com.eg.hsk.repo.StadiumRepo;
 import org.springframework.stereotype.Component;
 
 @Component

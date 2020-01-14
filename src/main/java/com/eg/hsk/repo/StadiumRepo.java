@@ -1,7 +1,7 @@
-package egcom.hsk.repository;
+package com.eg.hsk.repo;
 
-import egcom.hsk.dto.StadiumDTO;
-import egcom.hsk.entity.Stadium;
+import com.eg.hsk.dto.StadiumDTO;
+import com.eg.hsk.entity.Stadium;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

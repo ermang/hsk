@@ -1,4 +1,4 @@
-package egcom.hsk.dto;
+package com.eg.hsk.dto;
 
 public class DailyTimeSlotDTO {
     public final TimeSlotDTO[] timeSlotDTOs;

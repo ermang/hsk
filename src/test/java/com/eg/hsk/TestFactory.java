@@ -1,7 +1,7 @@
-package egcom.hsk;
+package com.eg.hsk;
 
-import egcom.hsk.dto.CreateReservationDTO;
-import egcom.hsk.dto.CreateStadiumDTO;
+import com.eg.hsk.dto.CreateReservationDTO;
+import com.eg.hsk.dto.CreateStadiumDTO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

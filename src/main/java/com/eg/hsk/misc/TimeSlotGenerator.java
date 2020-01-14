@@ -1,8 +1,8 @@
-package egcom.hsk.misc;
+package com.eg.hsk.misc;
 
-import egcom.hsk.dto.DailyTimeSlotDTO;
-import egcom.hsk.dto.TimeSlotDTO;
-import egcom.hsk.entity.Reservation;
+import com.eg.hsk.dto.DailyTimeSlotDTO;
+import com.eg.hsk.dto.TimeSlotDTO;
+import com.eg.hsk.entity.Reservation;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

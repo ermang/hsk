@@ -1,6 +1,6 @@
-package egcom.hsk.repository;
+package com.eg.hsk.repo;
 
-import egcom.hsk.entity.Reservation;
+import com.eg.hsk.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

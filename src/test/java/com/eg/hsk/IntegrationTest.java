@@ -1,8 +1,11 @@
-package egcom.hsk;
+package com.eg.hsk;
 
-import egcom.hsk.dto.*;
-import egcom.hsk.entity.Reservation;
-import egcom.hsk.service.MainService;
+import com.eg.hsk.dto.CreateReservationDTO;
+import com.eg.hsk.dto.CreateStadiumDTO;
+import com.eg.hsk.dto.DailyTimeSlotDTO;
+import com.eg.hsk.dto.StadiumDTO;
+import com.eg.hsk.entity.Reservation;
+import com.eg.hsk.service.MainService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

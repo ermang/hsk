@@ -1,13 +1,16 @@
-package egcom.hsk.service;
+package com.eg.hsk.service;
 
-import egcom.hsk.dto.*;
-import egcom.hsk.entity.Reservation;
-import egcom.hsk.entity.Stadium;
-import egcom.hsk.misc.DTO2Entity;
-import egcom.hsk.misc.Entity2DTO;
-import egcom.hsk.misc.TimeSlotGenerator;
-import egcom.hsk.repository.ReservationRepo;
-import egcom.hsk.repository.StadiumRepo;
+import com.eg.hsk.dto.CreateReservationDTO;
+import com.eg.hsk.dto.CreateStadiumDTO;
+import com.eg.hsk.dto.DailyTimeSlotDTO;
+import com.eg.hsk.dto.StadiumDTO;
+import com.eg.hsk.entity.Reservation;
+import com.eg.hsk.entity.Stadium;
+import com.eg.hsk.misc.DTO2Entity;
+import com.eg.hsk.misc.Entity2DTO;
+import com.eg.hsk.misc.TimeSlotGenerator;
+import com.eg.hsk.repo.ReservationRepo;
+import com.eg.hsk.repo.StadiumRepo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

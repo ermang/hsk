@@ -1,4 +1,4 @@
-package egcom.hsk.entity;
+package com.eg.hsk.entity;
 
 import javax.persistence.*;
 

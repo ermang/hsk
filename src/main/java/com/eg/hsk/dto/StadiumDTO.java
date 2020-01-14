@@ -1,4 +1,4 @@
-package egcom.hsk.dto;
+package com.eg.hsk.dto;
 
 public class StadiumDTO {
     public final long id;
