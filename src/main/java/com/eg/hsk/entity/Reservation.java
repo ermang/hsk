@@ -5,27 +5,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-public class Reservation {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+public class Reservation extends BaseEntity{
 
     @ManyToOne
-    @JoinColumn(name = "stadium_id", nullable = false)
     private Stadium stadium;
 
     private LocalDate reservationDate;
 
     private LocalTime beginHour;
     private LocalTime endHour;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Stadium getStadium() {
         return stadium;

@@ -3,10 +3,7 @@ package com.eg.hsk.entity;
 import javax.persistence.*;
 
 @Entity
-public class Stadium {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+public class Stadium extends BaseEntity{
 
     @Column(nullable = false)
     private double latitude;
@@ -17,14 +14,6 @@ public class Stadium {
     private String city;
     private String district;
     private String address;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public double getLatitude() {
         return latitude;
