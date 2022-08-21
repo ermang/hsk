@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class Entity2DTO {
+public class Entity2Dto {
 
     public List<TimeSlotDTO> createTimeSlots(long stadiumId, List<Reservation> reservations) {
         List<TimeSlotDTO> timeSlotDTOs = new ArrayList<>();

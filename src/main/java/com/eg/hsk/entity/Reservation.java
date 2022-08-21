@@ -7,20 +7,24 @@ import java.time.LocalTime;
 @Entity
 public class Reservation extends BaseEntity{
 
-    @ManyToOne
-    private Stadium stadium;
+    @ManyToOne(optional = false)
+    private Pitch pitch;
 
+    @Column(nullable = false)
     private LocalDate reservationDate;
 
+    @Column(nullable = false)
     private LocalTime beginHour;
+
+    @Column(nullable = false)
     private LocalTime endHour;
 
-    public Stadium getStadium() {
-        return stadium;
+    public Pitch getPitch() {
+        return pitch;
     }
 
-    public void setStadium(Stadium stadium) {
-        this.stadium = stadium;
+    public void setPitch(Pitch pitch) {
+        this.pitch = pitch;
     }
 
     public LocalDate getReservationDate() {

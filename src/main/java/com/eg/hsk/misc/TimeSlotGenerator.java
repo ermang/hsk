@@ -25,7 +25,7 @@ public class TimeSlotGenerator {
     public DailyTimeSlotDTO updateWithReservations(DailyTimeSlotDTO dailyTimeSlotDTO,List<Reservation> reservations) {
         for (Reservation r : reservations)
             dailyTimeSlotDTO.timeSlotDTOs[r.getBeginHour().getHour()]= new TimeSlotDTO(r.getBeginHour().getHour(),
-                    r.getEndHour().getHour(), r.getStadium().getId(), true);
+                    r.getEndHour().getHour(), r.getPitch().getId(), true);
 
         return dailyTimeSlotDTO;
     }
