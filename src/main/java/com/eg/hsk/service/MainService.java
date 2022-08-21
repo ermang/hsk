@@ -1,15 +1,10 @@
 package com.eg.hsk.service;
 
-import com.eg.hsk.dto.DailyTimeSlotDTO;
-import com.eg.hsk.entity.Reservation;
 import com.eg.hsk.misc.Dto2Entity;
 import com.eg.hsk.misc.Entity2Dto;
 import com.eg.hsk.misc.TimeSlotGenerator;
 import com.eg.hsk.repo.ReservationRepo;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class MainService {

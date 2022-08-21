@@ -1,23 +1,22 @@
 package com.eg.hsk.entity;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
-public class Reservation extends BaseEntity{
+public class Reservation extends BaseEntity {
 
     @ManyToOne(optional = false)
     private Pitch pitch;
 
     @Column(nullable = false)
-    private LocalDate reservationDate;
+    private LocalDateTime reservationBegin;
 
     @Column(nullable = false)
-    private LocalTime beginHour;
+    private LocalDateTime reservationEnd;
 
-    @Column(nullable = false)
-    private LocalTime endHour;
 
     public Pitch getPitch() {
         return pitch;
@@ -27,27 +26,19 @@ public class Reservation extends BaseEntity{
         this.pitch = pitch;
     }
 
-    public LocalDate getReservationDate() {
-        return reservationDate;
+    public LocalDateTime getReservationBegin() {
+        return reservationBegin;
     }
 
-    public void setReservationDate(LocalDate reservationDate) {
-        this.reservationDate = reservationDate;
+    public void setReservationBegin(LocalDateTime reservationBegin) {
+        this.reservationBegin = reservationBegin;
     }
 
-    public LocalTime getBeginHour() {
-        return beginHour;
+    public LocalDateTime getReservationEnd() {
+        return reservationEnd;
     }
 
-    public void setBeginHour(LocalTime beginHour) {
-        this.beginHour = beginHour;
-    }
-
-    public LocalTime getEndHour() {
-        return endHour;
-    }
-
-    public void setEndHour(LocalTime endHour) {
-        this.endHour = endHour;
+    public void setReservationEnd(LocalDateTime reservationEnd) {
+        this.reservationEnd = reservationEnd;
     }
 }

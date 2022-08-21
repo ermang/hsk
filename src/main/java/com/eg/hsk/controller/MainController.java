@@ -1,5 +1,7 @@
 package com.eg.hsk.controller;
 
+import com.eg.hsk.dto.CreateReservationDto;
+import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.dto.in.CreateFacilityDto;
 import com.eg.hsk.dto.in.CreatePitchDto;
 import com.eg.hsk.service.FacilityService;
@@ -16,6 +18,11 @@ public class MainController {
         this.facilityService = facilityService;
     }
 
+    @PostMapping(path = "/city")
+    public void createFacility(@RequestBody CreateCityDto createCityDto) {
+        facilityService.createCity(createCityDto);
+    }
+
     @PostMapping(path = "/facility")
     public void createFacility(@RequestBody CreateFacilityDto createFacilityDto) {
         facilityService.createFacility(createFacilityDto);
@@ -24,5 +31,10 @@ public class MainController {
     @PostMapping(path = "/pitch")
     public void createPitch(@RequestBody CreatePitchDto createPitchDto) {
         facilityService.createPitch(createPitchDto);
+    }
+
+    @PostMapping(path = "/reservation")
+    public void createReservation(@RequestBody CreateReservationDto createReservationDto) {
+        facilityService.createReservation(createReservationDto);
     }
 }
