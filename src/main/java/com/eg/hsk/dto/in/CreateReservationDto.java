@@ -1,4 +1,4 @@
-package com.eg.hsk.dto;
+package com.eg.hsk.dto.in;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

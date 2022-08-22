@@ -1,6 +1,5 @@
 package com.eg.hsk.controller;
 
-import com.eg.hsk.dto.CreateReservationDto;
 import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.dto.in.CreateFacilityDto;
 import com.eg.hsk.dto.in.CreatePitchDto;
@@ -33,8 +32,4 @@ public class MainController {
         facilityService.createPitch(createPitchDto);
     }
 
-    @PostMapping(path = "/reservation")
-    public void createReservation(@RequestBody CreateReservationDto createReservationDto) {
-        facilityService.createReservation(createReservationDto);
-    }
 }

@@ -1,6 +1,6 @@
 package com.eg.hsk.misc;
 
-import com.eg.hsk.dto.CreateReservationDto;
+import com.eg.hsk.dto.in.CreateReservationDto;
 import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.dto.in.CreateFacilityDto;
 import com.eg.hsk.dto.in.CreatePitchDto;
