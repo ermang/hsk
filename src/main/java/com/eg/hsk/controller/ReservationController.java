@@ -23,7 +23,7 @@ public class ReservationController {
         facilityService.createReservation(createReservationDto);
     }
 
-    @GetMapping(path = "/{pitchId}/{date}")
+    @GetMapping(path = "/pitchId/{pitchId}/date/{date}")
     public DailyTimeSlotDto getDailyReservation(@PathVariable long pitchId, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         return facilityService.getDailyTImeSlotDto(pitchId, date);
     }
