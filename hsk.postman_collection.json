@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "ab1a60e1-bb28-44e4-94af-01e99c467e2e",
+		"name": "hsk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create_city",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"ISTANBUL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/city",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_facility",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"osman spor tesisleri\",\n    \"cityId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/facility",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"facility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_pitch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pitchType\": \"FOOTBALL\",\n    \"facilityId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pitch",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pitch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pitchId\": 1,\n    \"reservationBegin\": \"2022-12-30T00:00\",\n    \"reservationEnd\": \"2022-12-30T00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read_reservation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/reservation/1/2022-12-30",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservation",
+						"1",
+						"2022-12-30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search_pitch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pitch/city/1?pitchType=FOOTBALL",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pitch",
+						"city",
+						"1"
+					],
+					"query": [
+						{
+							"key": "pitchType",
+							"value": "FOOTBALL"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
