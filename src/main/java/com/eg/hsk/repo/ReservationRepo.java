@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReservationRepo extends JpaRepository<Reservation, Long> {
 
-    @Query(value = "SELECT r FROM Reservation r WHERE r.pitch.id = :pitchId AND r.reservationBegin > :beginDateTime AND r.reservationEnd < :endDateTime")
+    @Query(value = "SELECT r FROM Reservation r WHERE r.pitch.id = :pitchId AND r.reservationBegin >= :beginDateTime AND r.reservationEnd <= :endDateTime")
     List<Reservation> findAllByDateAndPitchId(@Param("beginDateTime") LocalDateTime beginDateTime, @Param("endDateTime") LocalDateTime endDateTime,
                                               @Param("pitchId") long pitchId);
 }

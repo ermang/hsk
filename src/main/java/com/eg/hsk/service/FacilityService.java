@@ -68,28 +68,29 @@ public class FacilityService {
         reservationRepo.save(reservation);
     }
 
-    public DailyTimeSlotDto getDailyTImeSlotDto(long pitchId, LocalDate date) {
+    public DailyTimeSlotDto getDailyTImeSlotDto(long pitchId, LocalDate localDate) {
 
-        LocalDateTime beginDateTime = LocalDateTime.of(date, LocalTime.of(0, 0));
+        LocalDateTime beginDateTime = LocalDateTime.of(localDate, LocalTime.of(0, 0));
         LocalDateTime endDateTime = beginDateTime.plusDays(1);
         List<Reservation> reservationList = reservationRepo.findAllByDateAndPitchId(beginDateTime, endDateTime, pitchId);
 
-        DailyTimeSlotDto dto = timeSlotGenerator.generateDailyTimeSlotDTO(pitchId, date, reservationList);
+        DailyTimeSlotDto dto = timeSlotGenerator.generateDailyTimeSlotDTO(pitchId, localDate);
+        timeSlotGenerator.updateDailyTimeSlotDTOWithReservations(dto, reservationList);
 
         return dto;
     }
 
     public Page<ReadPitchDto>  searchPitch(long cityId, PitchType pitchType, Pageable pageable) {
-        Page<AsdDto> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
+        Page<Pitch> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
 
         List<ReadPitchDto> readPitchDtoList = new ArrayList<>();
 
-//        for(Pitch p : pagedPitch.getContent()) {
-//            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(pagedPitch.getContent().get(0));
-//            readPitchDtoList.add(rpd);
-//        }
+        for(Pitch p : pagedPitch.getContent()) {
+            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(pagedPitch.getContent().get(0));
+            readPitchDtoList.add(rpd);
+        }
 
-        return null;
-       // return new PageImpl<ReadPitchDto>(readPitchDtoList, pageable, pagedPitch.getTotalElements());
+
+       return new PageImpl<ReadPitchDto>(readPitchDtoList, pageable, pagedPitch.getTotalElements());
     }
 }

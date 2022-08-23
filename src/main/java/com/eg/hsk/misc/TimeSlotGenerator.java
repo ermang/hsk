@@ -19,7 +19,7 @@ public class TimeSlotGenerator {
 
 
 
-    public DailyTimeSlotDto generateDailyTimeSlotDTO(long pitchId, LocalDate localDate, List<Reservation> reservationList) {
+    public DailyTimeSlotDto generateDailyTimeSlotDTO(long pitchId, LocalDate localDate) {
 
         TimeSlotDto[] timeSlotDtoList = new TimeSlotDto[timeSlotsInDay];
 
@@ -35,6 +35,18 @@ public class TimeSlotGenerator {
         DailyTimeSlotDto dailyTimeSlotDTO = new DailyTimeSlotDto(timeSlotDtoList);
 
         return dailyTimeSlotDTO;
+    }
+
+    public void updateDailyTimeSlotDTOWithReservations(DailyTimeSlotDto dto, List<Reservation> reservationList) {
+        for(Reservation r : reservationList) {
+            LocalDateTime reservationBegin = r.getReservationBegin();
+            LocalDateTime reservationEnd = r.getReservationEnd();
+            int beginIndexToBeUpdated = ((reservationBegin.getHour() * 60) + reservationBegin.getMinute()) / MIN_RESERVATION_DURATION_IN_MINUTES;
+            int endIndexToBeUpdated = ((reservationEnd.getHour() * 60) + reservationEnd.getMinute()) / MIN_RESERVATION_DURATION_IN_MINUTES;
+
+            for (int i = beginIndexToBeUpdated; i < endIndexToBeUpdated; i++)
+                dto.timeSlotDtoList[i] = new TimeSlotDto(dto.timeSlotDtoList[i].pitchId, dto.timeSlotDtoList[i].slotBegin, dto.timeSlotDtoList[i].slotEnd, true);
+        }
     }
 
 //    public DailyTimeSlotDTO updateWithReservations(DailyTimeSlotDTO dailyTimeSlotDTO,List<Reservation> reservations) {

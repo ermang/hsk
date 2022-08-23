@@ -17,14 +17,17 @@ public interface PitchRepo extends JpaRepository<Pitch, Long> {
 //            "INNER JOIN  f.city c  " +
 //            "WHERE p.pitchType = :pitchType AND c.id = :cityId")
 
-//    @Query(value = "SELECT p from Pitch p " +
-//            "INNER JOIN FETCH Facility f ON p.facility.id = f.id " +
-//            "INNER JOIN FETCH City c ON f.city.id = c.id AND c.id = :cityId " +
-//            "WHERE p.pitchType = :pitchType")
-    @Query(value = "SELECT new com.eg.hsk.repo.AsdDto(p.id as pitchId, f.id as facilityId, c.id as cityId) from Pitch p " +
+    @Query(value = "SELECT p from Pitch p " +
             "INNER JOIN FETCH Facility f ON p.facility.id = f.id " +
             "INNER JOIN FETCH City c ON f.city.id = c.id AND c.id = :cityId " +
             "WHERE p.pitchType = :pitchType")
+Page<Pitch> findAllByCityIdAndPitchType(@Param("cityId") long cityId, @Param("pitchType") PitchType pitchType, Pageable pageable);
 
-    Page<AsdDto> findAllByCityIdAndPitchType(@Param("cityId") long cityId, @Param("pitchType") PitchType pitchType, Pageable pageable);
+    //TODO:usttekiyle ayni bu silersin duzeltince n+1 e kaciyor ustteki
+//    @Query(value = "SELECT new com.eg.hsk.repo.AsdDto(p.id as pitchId, f.id as facilityId, c.id as cityId) from Pitch p " +
+//            "INNER JOIN FETCH Facility f ON p.facility.id = f.id " +
+//            "INNER JOIN FETCH City c ON f.city.id = c.id AND c.id = :cityId " +
+//            "WHERE p.pitchType = :pitchType")
+//
+//    Page<AsdDto> findAllByCityIdAndPitchType(@Param("cityId") long cityId, @Param("pitchType") PitchType pitchType, Pageable pageable);
 }
