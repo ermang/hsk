@@ -10,10 +10,7 @@ import com.eg.hsk.entity.*;
 import com.eg.hsk.misc.Dto2Entity;
 import com.eg.hsk.misc.Entity2Dto;
 import com.eg.hsk.misc.TimeSlotGenerator;
-import com.eg.hsk.repo.CityRepo;
-import com.eg.hsk.repo.FacilityRepo;
-import com.eg.hsk.repo.PitchRepo;
-import com.eg.hsk.repo.ReservationRepo;
+import com.eg.hsk.repo.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -83,15 +80,16 @@ public class FacilityService {
     }
 
     public Page<ReadPitchDto>  searchPitch(long cityId, PitchType pitchType, Pageable pageable) {
-        Page<Pitch> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
+        Page<AsdDto> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
 
         List<ReadPitchDto> readPitchDtoList = new ArrayList<>();
 
-        for(Pitch p : pagedPitch.getContent()) {
-            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(pagedPitch.getContent().get(0));
-            readPitchDtoList.add(rpd);
-        }
+//        for(Pitch p : pagedPitch.getContent()) {
+//            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(pagedPitch.getContent().get(0));
+//            readPitchDtoList.add(rpd);
+//        }
 
-        return new PageImpl<ReadPitchDto>(readPitchDtoList, pageable, pagedPitch.getTotalElements());
+        return null;
+       // return new PageImpl<ReadPitchDto>(readPitchDtoList, pageable, pagedPitch.getTotalElements());
     }
 }
