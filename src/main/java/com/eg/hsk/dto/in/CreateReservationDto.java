@@ -1,13 +1,19 @@
 package com.eg.hsk.dto.in;
 
-import java.time.LocalDate;
+import org.aspectj.bridge.IMessage;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class CreateReservationDto {
 
     public long pitchId;
+
+    @NotNull(message = "reservationBegin can not be null")
     public LocalDateTime reservationBegin;
+
+    @NotNull(message = "reservationEnd can not be null")
     public LocalDateTime reservationEnd;
 
 }

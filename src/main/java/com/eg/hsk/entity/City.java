@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class City extends BaseEntity{
+public class City extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;

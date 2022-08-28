@@ -10,18 +10,23 @@ import com.eg.hsk.entity.*;
 import com.eg.hsk.misc.Dto2Entity;
 import com.eg.hsk.misc.Entity2Dto;
 import com.eg.hsk.misc.TimeSlotGenerator;
-import com.eg.hsk.repo.*;
+import com.eg.hsk.repo.CityRepo;
+import com.eg.hsk.repo.FacilityRepo;
+import com.eg.hsk.repo.PitchRepo;
+import com.eg.hsk.repo.ReservationRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class FacilityService {
 
@@ -32,6 +37,7 @@ public class FacilityService {
     private final PitchRepo pitchRepo;
     private final CityRepo cityRepo;
     private final ReservationRepo reservationRepo;
+
 
     public FacilityService(Dto2Entity dto2Entity, Entity2Dto entity2Dto, TimeSlotGenerator timeSlotGenerator, FacilityRepo facilityRepo,
                            PitchRepo pitchRepo, CityRepo cityRepo, ReservationRepo reservationRepo) {
@@ -63,6 +69,14 @@ public class FacilityService {
     }
 
     public void createReservation(CreateReservationDto createReservationDto) {
+
+        List<Reservation> reservationList = reservationRepo.findAllByDateAndPitchId(createReservationDto.reservationBegin, createReservationDto.reservationEnd,
+                createReservationDto.pitchId);
+
+        if (!reservationList.isEmpty()){
+            throw new RuntimeException("lololo");
+        }
+
         Reservation reservation = dto2Entity.createReservationDto2Reservation(createReservationDto);
 
         reservationRepo.save(reservation);
@@ -86,7 +100,7 @@ public class FacilityService {
         List<ReadPitchDto> readPitchDtoList = new ArrayList<>();
 
         for(Pitch p : pagedPitch.getContent()) {
-            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(pagedPitch.getContent().get(0));
+            ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(p);
             readPitchDtoList.add(rpd);
         }
 

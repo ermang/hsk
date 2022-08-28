@@ -1,106 +1,99 @@
-//package com.eg.hsk;
-//
-//import com.eg.hsk.dto.CreateReservationDTO;
-//import com.eg.hsk.dto.CreateStadiumDTO;
-//import com.eg.hsk.dto.DailyTimeSlotDTO;
-//import com.eg.hsk.dto.StadiumDTO;
-//import com.eg.hsk.entity.Reservation;
-//import com.eg.hsk.service.MainService;
-//import org.junit.Assert;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.stereotype.Component;
-//import org.springframework.stereotype.Service;
-//import org.springframework.test.context.junit4.SpringRunner;
-//
-//import java.time.LocalDate;
-//import java.time.LocalTime;
-//import java.util.List;
-//
-//@RunWith(SpringRunner.class)
-////@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
-//@DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class, Component.class}))
-//public class IntegrationTest {
-//    private final TestFactory testFactory;
-//
-//    @Autowired
-//    private MainService service;
-//
-//    public IntegrationTest() {
-//        this.testFactory = new TestFactory();
-//    }
-//
-//    @Test
-//    public void create_stadium() {
-//        CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
-//        Long actual = service.createStadium(createStadiumDTO);
-//
-//        Assert.assertNotNull(actual);
-//    }
-//
-//    @Test
-//    public void create_stadium_create_reservation() {
-//        CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
-//        Long stadiumId = service.createStadium(createStadiumDTO);
-//
-//        CreateReservationDTO createReservationDTO = testFactory.createReservationDTO();
-//        Long actual = service.createReservation(createReservationDTO);
-//
-//        Assert.assertNotNull(actual);
-//    }
-//
-//    @Test
-//    public void list_stadiums_in_city() {
-//        CreateStadiumDTO dto = testFactory.createStadiumDTO();
-//        service.createStadium(dto);
-//        CreateStadiumDTO dto2 = testFactory.createStadiumDTO();
-//        dto2.city = "ankara";
-//        service.createStadium(dto2);
-//
-//        List<StadiumDTO> actual = service.readStadiumsByCity("ankara");
-//        Assert.assertEquals(1, actual.size());
-//        Assert.assertEquals("ankara", actual.get(0).city);
-//    }
-//
-//    @Test
-//    public void list_stadiums_in_city_and_district() {
-//        CreateStadiumDTO dto = testFactory.createStadiumDTO();
-//        service.createStadium(dto);
-//
-//        List<StadiumDTO> actual = service.readStadiumsByCityAndDistrict("istanbul", "maltepe");
-//        Assert.assertEquals(1, actual.size());
-//        Assert.assertEquals("istanbul", actual.get(0).city);
-//        Assert.assertEquals("maltepe", actual.get(0).district);
-//    }
-//
-//    @Test
-//    public void list_reservations_for_stadium_on_date() {
-//        CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
-//        Long stadiumId = service.createStadium(createStadiumDTO);
-//
-//        CreateReservationDTO reservationDTO = testFactory.createReservationDTO();
-//        reservationDTO.stadiumId = stadiumId;
-//        service.createReservation(reservationDTO);
-//
-//        List<Reservation> reservations = service.readReservations(stadiumId, LocalDate.now());
-//
-//        Assert.assertEquals(1, reservations.size());
-//    }
-//
-//    @Test
-//    public void list_time_slots_for_stadium_on_date_after_reservation() {
-//        CreateStadiumDTO createStadiumDTO = testFactory.createStadiumDTO();
-//        Long stadiumId = service.createStadium(createStadiumDTO);
-//
-//        CreateReservationDTO reservationDTO = testFactory.createReservationDTO();
-//        reservationDTO.stadiumId = stadiumId;
-//        service.createReservation(reservationDTO);
-//
-//        DailyTimeSlotDTO dailyTimeSlotDTO = service.readTimeSlots(stadiumId, LocalDate.now());
-//
-//        Assert.assertEquals(true, dailyTimeSlotDTO.timeSlotDTOs[LocalTime.now().getHour()].reserved);
-//    }
-//}
+package com.eg.hsk;
+
+import com.eg.hsk.dto.in.CreateCityDto;
+import com.eg.hsk.dto.in.CreateFacilityDto;
+import com.eg.hsk.service.FacilityService;
+import com.eg.hsk.service.MainService;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
+@DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class, Component.class}))
+public class IntegrationTest {
+
+
+    @Autowired
+    private MainService service;
+    @Autowired
+    private FacilityService facilityService;
+
+    public IntegrationTest() {
+    }
+
+    @Test(expected = Test.None.class)
+    public void create_city() {
+        CreateCityDto dto = new CreateCityDto();
+        dto.name = "ISTANBUL";
+
+        facilityService.createCity(dto);
+    }
+
+    @Test
+    public void create_city_throws_error_on_unique_constraint_on_name_field() {
+        CreateCityDto dto = new CreateCityDto();
+        dto.name = "ISTANBUL";
+
+        facilityService.createCity(dto);
+
+        Exception actual = null;
+
+        try {
+            facilityService.createCity(dto);
+        } catch (Exception e) {
+            actual = e;
+        }
+
+        Assert.assertEquals(DataIntegrityViolationException.class, actual.getClass());
+    }
+
+    @Test(expected = Test.None.class)
+    public void create_facility() {
+        CreateCityDto createCityDto = new CreateCityDto();
+        createCityDto.name = "ISTANBUL";
+
+        facilityService.createCity(createCityDto);
+
+        CreateFacilityDto dto = new CreateFacilityDto();
+        dto.name = "OSMAN SPOR TESISLERI";
+        dto.cityId = 1L;
+
+        facilityService.createFacility(dto);
+    }
+
+    @Test
+    public void create_facility_throws_error_on_unique_constraint_on_name_field() {
+        CreateCityDto createCityDto = new CreateCityDto();
+        createCityDto.name = "ISTANBUL";
+
+        facilityService.createCity(createCityDto);
+
+        CreateFacilityDto dto = new CreateFacilityDto();
+        dto.name = "OSMAN SPOR TESISLERI";
+        dto.cityId = 1L;
+
+        facilityService.createFacility(dto);
+
+        Exception actual = null;
+
+        try {
+            facilityService.createFacility(dto);
+        } catch (Exception e) {
+            actual = e;
+        }
+
+        Assert.assertEquals(DataIntegrityViolationException.class, actual.getClass());
+    }
+
+
+}

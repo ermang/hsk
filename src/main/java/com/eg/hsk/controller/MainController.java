@@ -1,12 +1,12 @@
 package com.eg.hsk.controller;
 
-import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.dto.in.CreateFacilityDto;
-import com.eg.hsk.dto.in.CreatePitchDto;
 import com.eg.hsk.service.FacilityService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class MainController {
@@ -17,19 +17,9 @@ public class MainController {
         this.facilityService = facilityService;
     }
 
-    @PostMapping(path = "/city")
-    public void createFacility(@RequestBody CreateCityDto createCityDto) {
-        facilityService.createCity(createCityDto);
-    }
 
-    @PostMapping(path = "/facility")
-    public void createFacility(@RequestBody CreateFacilityDto createFacilityDto) {
-        facilityService.createFacility(createFacilityDto);
-    }
 
-    @PostMapping(path = "/pitch")
-    public void createPitch(@RequestBody CreatePitchDto createPitchDto) {
-        facilityService.createPitch(createPitchDto);
-    }
+
+
 
 }
