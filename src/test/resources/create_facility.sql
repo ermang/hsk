@@ -1,0 +1,1 @@
+INSERT INTO city(id, version, name) VALUES (1, 0, 'ISTANBUL');
