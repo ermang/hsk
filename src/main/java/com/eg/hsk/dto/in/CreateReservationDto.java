@@ -1,8 +1,5 @@
 package com.eg.hsk.dto.in;
 
-import org.aspectj.bridge.IMessage;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 

@@ -13,14 +13,18 @@ import java.time.LocalDate;
 @RestController
 public class ReservationController {
 
+    private final RequestValidator requestValidator;
     private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(RequestValidator requestValidator, ReservationService reservationService) {
+        this.requestValidator = requestValidator;
         this.reservationService = reservationService;
     }
 
+
     @PostMapping
     public void createReservation(@RequestBody CreateReservationDto createReservationDto) {
+        requestValidator.validate(createReservationDto);
         reservationService.createReservation(createReservationDto);
     }
 
