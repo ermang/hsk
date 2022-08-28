@@ -2,6 +2,7 @@ package com.eg.hsk;
 
 import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.dto.in.CreateFacilityDto;
+import com.eg.hsk.service.CityService;
 import com.eg.hsk.service.FacilityService;
 import com.eg.hsk.service.MainService;
 import org.junit.Assert;
@@ -26,6 +27,8 @@ public class IntegrationTest {
     @Autowired
     private MainService service;
     @Autowired
+    private CityService cityService;
+    @Autowired
     private FacilityService facilityService;
 
     public IntegrationTest() {
@@ -36,7 +39,7 @@ public class IntegrationTest {
         CreateCityDto dto = new CreateCityDto();
         dto.name = "ISTANBUL";
 
-        facilityService.createCity(dto);
+        cityService.createCity(dto);
     }
 
     @Test
@@ -44,12 +47,12 @@ public class IntegrationTest {
         CreateCityDto dto = new CreateCityDto();
         dto.name = "ISTANBUL";
 
-        facilityService.createCity(dto);
+        cityService.createCity(dto);
 
         Exception actual = null;
 
         try {
-            facilityService.createCity(dto);
+            cityService.createCity(dto);
         } catch (Exception e) {
             actual = e;
         }
@@ -62,7 +65,7 @@ public class IntegrationTest {
         CreateCityDto createCityDto = new CreateCityDto();
         createCityDto.name = "ISTANBUL";
 
-        facilityService.createCity(createCityDto);
+        cityService.createCity(createCityDto);
 
         CreateFacilityDto dto = new CreateFacilityDto();
         dto.name = "OSMAN SPOR TESISLERI";
@@ -76,7 +79,7 @@ public class IntegrationTest {
         CreateCityDto createCityDto = new CreateCityDto();
         createCityDto.name = "ISTANBUL";
 
-        facilityService.createCity(createCityDto);
+        cityService.createCity(createCityDto);
 
         CreateFacilityDto dto = new CreateFacilityDto();
         dto.name = "OSMAN SPOR TESISLERI";

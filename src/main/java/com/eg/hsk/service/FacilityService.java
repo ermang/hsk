@@ -57,11 +57,7 @@ public class FacilityService {
         pitchRepo.save(pitch);
     }
 
-    public void createCity(CreateCityDto createCityDto) {
-        City city = dto2Entity.createCityDto2City(createCityDto);
 
-        cityRepo.save(city);
-    }
 
     public Page<ReadPitchDto>  searchPitch(long cityId, PitchType pitchType, Pageable pageable) {
         Page<Pitch> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
