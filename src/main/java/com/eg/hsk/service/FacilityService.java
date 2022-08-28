@@ -32,22 +32,17 @@ public class FacilityService {
 
     private final Dto2Entity dto2Entity;
     private final Entity2Dto entity2Dto;
-    private final TimeSlotGenerator timeSlotGenerator;
     private final FacilityRepo facilityRepo;
     private final PitchRepo pitchRepo;
     private final CityRepo cityRepo;
-    private final ReservationRepo reservationRepo;
 
 
-    public FacilityService(Dto2Entity dto2Entity, Entity2Dto entity2Dto, TimeSlotGenerator timeSlotGenerator, FacilityRepo facilityRepo,
-                           PitchRepo pitchRepo, CityRepo cityRepo, ReservationRepo reservationRepo) {
+    public FacilityService(Dto2Entity dto2Entity, Entity2Dto entity2Dto, FacilityRepo facilityRepo, PitchRepo pitchRepo, CityRepo cityRepo) {
         this.dto2Entity = dto2Entity;
         this.entity2Dto = entity2Dto;
-        this.timeSlotGenerator = timeSlotGenerator;
         this.facilityRepo = facilityRepo;
         this.pitchRepo = pitchRepo;
         this.cityRepo = cityRepo;
-        this.reservationRepo = reservationRepo;
     }
 
     public void createFacility(CreateFacilityDto createFacilityDto) {
@@ -68,32 +63,6 @@ public class FacilityService {
         cityRepo.save(city);
     }
 
-    public void createReservation(CreateReservationDto createReservationDto) {
-
-        List<Reservation> reservationList = reservationRepo.findAllByDateAndPitchId(createReservationDto.reservationBegin, createReservationDto.reservationEnd,
-                createReservationDto.pitchId);
-
-        if (!reservationList.isEmpty()){
-            throw new RuntimeException("lololo");
-        }
-
-        Reservation reservation = dto2Entity.createReservationDto2Reservation(createReservationDto);
-
-        reservationRepo.save(reservation);
-    }
-
-    public DailyTimeSlotDto getDailyTImeSlotDto(long pitchId, LocalDate localDate) {
-
-        LocalDateTime beginDateTime = LocalDateTime.of(localDate, LocalTime.of(0, 0));
-        LocalDateTime endDateTime = beginDateTime.plusDays(1);
-        List<Reservation> reservationList = reservationRepo.findAllByDateAndPitchId(beginDateTime, endDateTime, pitchId);
-
-        DailyTimeSlotDto dto = timeSlotGenerator.generateDailyTimeSlotDTO(pitchId, localDate);
-        timeSlotGenerator.updateDailyTimeSlotDTOWithReservations(dto, reservationList);
-
-        return dto;
-    }
-
     public Page<ReadPitchDto>  searchPitch(long cityId, PitchType pitchType, Pageable pageable) {
         Page<Pitch> pagedPitch = pitchRepo.findAllByCityIdAndPitchType(cityId, pitchType, pageable);
 
@@ -103,7 +72,6 @@ public class FacilityService {
             ReadPitchDto rpd = entity2Dto.pitch2ReadPitchDto(p);
             readPitchDtoList.add(rpd);
         }
-
 
        return new PageImpl<ReadPitchDto>(readPitchDtoList, pageable, pagedPitch.getTotalElements());
     }
