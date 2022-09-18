@@ -2,7 +2,6 @@ package com.eg.hsk.controller;
 
 import com.eg.hsk.dto.in.CreateCityDto;
 import com.eg.hsk.service.CityService;
-import com.eg.hsk.service.FacilityService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

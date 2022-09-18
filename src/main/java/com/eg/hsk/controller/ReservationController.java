@@ -2,7 +2,6 @@ package com.eg.hsk.controller;
 
 import com.eg.hsk.dto.DailyTimeSlotDto;
 import com.eg.hsk.dto.in.CreateReservationDto;
-import com.eg.hsk.service.FacilityService;
 import com.eg.hsk.service.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
