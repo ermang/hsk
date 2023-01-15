@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping(path = "/pitch")
 @RestController
 public class PitchController {
@@ -20,7 +22,7 @@ public class PitchController {
 
 
     @PostMapping
-    public void createPitch(@RequestBody CreatePitchDto createPitchDto) {
+    public void createPitch(@Valid @RequestBody CreatePitchDto createPitchDto) {
         facilityService.createPitch(createPitchDto);
     }
 

@@ -6,6 +6,7 @@ import com.eg.hsk.service.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RequestMapping(path = "/reservation")
@@ -22,7 +23,7 @@ public class ReservationController {
 
 
     @PostMapping
-    public void createReservation(@RequestBody CreateReservationDto createReservationDto) {
+    public void createReservation(@Valid @RequestBody CreateReservationDto createReservationDto) {
         requestValidator.validate(createReservationDto);
         reservationService.createReservation(createReservationDto);
     }

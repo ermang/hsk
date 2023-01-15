@@ -14,7 +14,7 @@ public class RequestValidator {
         if (!dto.reservationEnd.isAfter(dto.reservationBegin))
             throw new IllegalArgumentException("reservationEnd must be later than reservationBegin");
 
-        if (dto.reservationBegin.isAfter(LocalDateTime.now()))
+        if (dto.reservationBegin.isBefore(LocalDateTime.now()))
             throw new IllegalArgumentException("reservationBegin must be later than now");
 
         if (dto.reservationBegin.getMinute() % Constant.MIN_RESERVATION_DURATION_IN_MINUTES !=0)

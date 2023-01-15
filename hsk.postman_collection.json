@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"ISTANBUL\"\n}",
+					"raw": "{\n    \"name\": \"ankara\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,11 +20,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/city",
+					"raw": "{{baseUrl}}/city",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"city"
 					]
@@ -47,11 +46,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/facility",
+					"raw": "{{baseUrl}}/facility",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"facility"
 					]
@@ -74,11 +72,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/pitch",
+					"raw": "{{baseUrl}}/pitch",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"pitch"
 					]
@@ -93,7 +90,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"pitchId\": 1,\n    \"reservationBegin\": \"2022-12-30T00:00\",\n    \"reservationEnd\": \"2022-12-30T00:00\"\n}",
+					"raw": "{\n    \"pitchId\": 1,\n    \"reservationBegin\": \"2022-12-30T00:00\",\n    \"reservationEnd\": \"2022-12-30T00:30\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -101,11 +98,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/reservation",
+					"raw": "{{baseUrl}}/reservation",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"reservation"
 					]
@@ -119,14 +115,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/reservation/1/2022-12-30",
+					"raw": "{{baseUrl}}/reservation/pitchId/1/date/2022-12-30",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"reservation",
+						"pitchId",
 						"1",
+						"date",
 						"2022-12-30"
 					]
 				}
@@ -139,12 +136,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pitch/city/1?pitchType=FOOTBALL",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/pitch/city/1?pitchType=FOOTBALL",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"pitch",
 						"city",
@@ -159,6 +154,33 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "default"
 		}
 	]
 }
