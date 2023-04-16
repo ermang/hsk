@@ -1,11 +1,9 @@
 package com.eg.hsk.controller;
 
 import com.eg.hsk.dto.in.CreateCityDto;
+import com.eg.hsk.dto.out.ReadCityListDto;
 import com.eg.hsk.service.CityService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,6 +23,13 @@ public class CityController {
     public void createCity(@Valid @RequestBody CreateCityDto createCityDto) {
         requestNormalizer.normalize(createCityDto);
         cityService.createCity(createCityDto);
+    }
+
+    @GetMapping(path = "/cities")
+    public ReadCityListDto readCities() {
+        ReadCityListDto readCityListDto = cityService.readCityList();
+
+        return readCityListDto;
     }
 
 }
